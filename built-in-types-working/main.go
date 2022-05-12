@@ -68,6 +68,8 @@ func DeleteFromSlice(a []string, i int) []string {
 	return a
 }*/
 
+// maps
+/*
 func main() {
 	intMap := make(map[string]int)
 	// un mapa siempre se pasa por referencia
@@ -97,4 +99,60 @@ func main() {
 
 	intMap["two"] = 4
 
+}
+*/
+
+type Animal struct {
+	Name         string
+	Sound        string
+	NumberOfLegs int
+}
+
+// Funcion con a receiver
+func (a *Animal) Says() {
+	fmt.Printf("A %s says %s", a.Name, a.Sound)
+	fmt.Println()
+}
+
+func (a *Animal) HowManyLegs() {
+	fmt.Printf("A %s has %d legs", a.Name, a.NumberOfLegs)
+	fmt.Println()
+}
+
+func main() {
+	/* z := addTwoNumbers(2, 4)
+	fmt.Println(z) */
+
+	/* myTotal := sumMany(2, 3, 4, 5, 92, 7, -5)
+	fmt.Println(myTotal) */
+
+	var dog Animal
+	dog.Name = "dog"
+	dog.Sound = "guau"
+	dog.NumberOfLegs = 4
+	dog.Says()
+
+	cat := Animal{
+		Name:         "cat",
+		Sound:        "miau",
+		NumberOfLegs: 4,
+	}
+
+	cat.Says()
+	cat.HowManyLegs()
+}
+
+func addTwoNumbers(x, y int) (sum int) {
+	sum = x + y
+	return
+}
+
+// variatic function
+func sumMany(nums ...int) int {
+	total := 0
+	for _, x := range nums {
+		total = total + x
+	}
+
+	return total
 }
