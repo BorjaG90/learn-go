@@ -212,6 +212,7 @@ func listenForKeyPress() {
 } */
 
 // interfaces
+/*
 type Animal interface {
 	Says() string
 	HowManyLegs() int
@@ -269,4 +270,25 @@ func main() {
 func Riddle(a Animal) {
 	riddle := fmt.Sprintf(`This animal says "%s" and has %d legs. What animal is it?`, a.Says(), a.HowManyLegs())
 	fmt.Println(riddle)
+}
+*/
+
+// expresions
+func main() {
+	age := 10
+	name := "Jack"
+	rightHanded := true
+
+	fmt.Printf("%s is %d years old. Right handed %t", name, age, rightHanded)
+	fmt.Println()
+
+	ageInTenYears := age + 10
+
+	fmt.Printf("In ten years, %s will be %d years old", name, ageInTenYears)
+	fmt.Println()
+
+	isATeenager := age >= 13
+
+	fmt.Println(name, "is a teenager:", isATeenager)
+
 }
