@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/eiannone/keyboard"
 )
 
 // reference types (pointers, slices, maps, functions, channels)
@@ -102,6 +103,8 @@ func main() {
 }
 */
 
+// functions
+/*
 type Animal struct {
 	Name         string
 	Sound        string
@@ -123,10 +126,10 @@ func main() {
 	/* z := addTwoNumbers(2, 4)
 	fmt.Println(z) */
 
-	/* myTotal := sumMany(2, 3, 4, 5, 92, 7, -5)
-	fmt.Println(myTotal) */
+/* myTotal := sumMany(2, 3, 4, 5, 92, 7, -5)
+fmt.Println(myTotal) */
 
-	var dog Animal
+/*	var dog Animal
 	dog.Name = "dog"
 	dog.Sound = "guau"
 	dog.NumberOfLegs = 4
@@ -155,4 +158,56 @@ func sumMany(nums ...int) int {
 	}
 
 	return total
+}
+*/
+
+// A channel
+var keyPressChan chan rune
+
+func main() {
+	// Concurrencia
+	/* go doSomething("Hello, world")
+
+	fmt.Println("This is another message")
+	for {
+
+	} */
+
+	keyPressChan = make(chan rune)
+
+	go listenForKeyPress()
+
+	fmt.Println("Press any key, or q to quit")
+	_ = keyboard.Open()
+	defer func() {
+		keyboard.Close()
+	}()
+
+	for {
+		char, _, _ := keyboard.GetSingleKey()
+		if char == 'q' || char == 'Q' {
+			break
+		}
+
+		keyPressChan <- char
+	}
+}
+
+func doSomething(s string) {
+	until := 0
+	for {
+		fmt.Println("s is", s)
+		until = until + 1
+		if until >= 5 {
+			break
+		}
+	}
+}
+
+// Using channels
+func listenForKeyPress() {
+	for {
+		key := <-keyPressChan
+		fmt.Println("You pressed", string(key))
+	}
 }
