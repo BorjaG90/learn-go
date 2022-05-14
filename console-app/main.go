@@ -38,14 +38,12 @@ func main() {
 	fmt.Println("6 - Espresso")
 	fmt.Println("Q - Quit the program")
 
-	for {
-		char, _, err := keyboard.GetSingleKey()
+	char := ' '
+
+	for char != 'q' && char != 'Q' {
+		char, _, err = keyboard.GetSingleKey()
 		if err != nil {
 			log.Fatal(err)
-		}
-
-		if char == 'q' || char == 'Q' {
-			break
 		}
 
 		// Traduce la runa al caracter
@@ -54,7 +52,16 @@ func main() {
 		// Convierte a integer
 		i, _ := strconv.Atoi(string(char))
 
-		fmt.Println(fmt.Sprintf("You chose %s", coffees[i]))
+		// More readable
+		/* _, ok := coffees[i]
+		if ok {
+			fmt.Println(fmt.Sprintf("You chose %s", coffees[i]))
+		} */
+
+		// Less readable
+		if _, ok := coffees[i]; ok {
+			fmt.Println(fmt.Sprintf("You chose %s", coffees[i]))
+		}
 	}
 
 	fmt.Println("Program exiting...")
