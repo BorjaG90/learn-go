@@ -52,8 +52,14 @@ func main() {
 		// Convierte a integer
 		i, _ := strconv.Atoi(string(char))
 
-		_, ok := coffees[i]
+		// More readable
+		/* _, ok := coffees[i]
 		if ok {
+			fmt.Println(fmt.Sprintf("You chose %s", coffees[i]))
+		} */
+
+		// Less readable
+		if _, ok := coffees[i]; ok {
 			fmt.Println(fmt.Sprintf("You chose %s", coffees[i]))
 		}
 	}
