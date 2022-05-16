@@ -42,6 +42,7 @@ func (g *Game) Rounds() {
 			g.RoundChan <- 1
 		case msg := <-g.DisplayChan:
 			fmt.Println(msg)
+			g.DisplayChan <- ""
 		}
 	}
 }
@@ -63,23 +64,25 @@ func (g *Game) ClearScreen() {
 
 func (g *Game) PrintIntro() {
 	// *** print out some instructions
-	// fmt.Println("Rock, Paper & Scissors")
-	// fmt.Println("----------------------")
-	// fmt.Println("Game is played for three rounds, and best of three wins the game. Good luck!")
-	// fmt.Println()
-	g.DisplayChan <- "Rock, Paper & Scissors"
-	g.DisplayChan <- "----------------------"
-	g.DisplayChan <- "Game is played for three rounds, and best of three wins the game. Good luck!"
-	g.DisplayChan <- ""
+	g.DisplayChan <- fmt.Sprintf(`
+Rock, Paper & Scissors
+----------------------
+Game is played for three rounds, and best of three wins the game. Good luck!
+
+`)
+	<-g.DisplayChan
 }
 
 func (g *Game) PlayRound() bool {
 	rand.Seed(time.Now().UnixNano())
 	playerValue := -1
 
-	fmt.Println()
-	fmt.Println("Round", g.Round.RoundNumber)
-	fmt.Println("------")
+	g.DisplayChan <- fmt.Sprintf(`
+
+Round %d
+--------
+`, g.Round.RoundNumber)
+	<-g.DisplayChan
 
 	fmt.Print("Please enter rock, paper or scissors -> ")
 	playerChoice, _ := reader.ReadString('\n')
@@ -96,18 +99,24 @@ func (g *Game) PlayRound() bool {
 	}
 
 	// *** print out player choice
-	fmt.Println()
+	g.DisplayChan <- ""
+	<-g.DisplayChan
+
 	g.DisplayChan <- fmt.Sprintf("Player chose %s", strings.ToUpper(playerChoice))
+	<-g.DisplayChan
 
 	switch computerValue {
 	case ROCK:
-		fmt.Println("Computer chose ROCK")
+		g.DisplayChan <- "Computer chose ROCK"
+		<-g.DisplayChan
 		break
 	case PAPER:
-		fmt.Println("Computer chose PAPER")
+		g.DisplayChan <- "Computer chose PAPER"
+		<-g.DisplayChan
 		break
 	case SCISSORS:
-		fmt.Println("Computer chose SCISSORS")
+		g.DisplayChan <- "Computer chose SCISSORS"
+		<-g.DisplayChan
 		break
 	default:
 	}
@@ -116,6 +125,7 @@ func (g *Game) PlayRound() bool {
 
 	if playerValue == computerValue {
 		g.DisplayChan <- "It's a draw"
+		<-g.DisplayChan
 		return false
 	} else {
 		switch playerValue {
@@ -142,6 +152,7 @@ func (g *Game) PlayRound() bool {
 			break
 		default:
 			g.DisplayChan <- "Invalid choice!"
+			<-g.DisplayChan
 			return false
 		}
 	}
@@ -151,22 +162,29 @@ func (g *Game) PlayRound() bool {
 func (g *Game) computerWins() {
 	g.Round.ComputerScore++
 	g.DisplayChan <- "Computer Wins!"
+	<-g.DisplayChan
 }
 
 func (g *Game) playerWins() {
 	g.Round.PlayerScore++
 	g.DisplayChan <- "Player Wins!"
+	<-g.DisplayChan
 }
 
 func (g *Game) PrintSummary() {
-	fmt.Println()
-	fmt.Println("Final score")
-	fmt.Println("-----------")
-	fmt.Printf("Player: %d/3, Computer %d/3", g.Round.PlayerScore, g.Round.ComputerScore)
-	fmt.Println()
+	g.DisplayChan <- fmt.Sprintf(`
+Final score
+-----------
+Player: %d/3, Computer %d/3
+
+`, g.Round.PlayerScore, g.Round.ComputerScore)
+	<-g.DisplayChan
+
 	if g.Round.PlayerScore > g.Round.ComputerScore {
-		fmt.Println("Player wins game!")
+		g.DisplayChan <- "Player wins game!"
+		<-g.DisplayChan
 	} else {
-		fmt.Println("Computer wins game!")
+		g.DisplayChan <- "Computer wins game!"
+		<-g.DisplayChan
 	}
 }
