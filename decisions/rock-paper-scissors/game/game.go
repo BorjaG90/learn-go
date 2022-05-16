@@ -63,10 +63,14 @@ func (g *Game) ClearScreen() {
 
 func (g *Game) PrintIntro() {
 	// *** print out some instructions
-	fmt.Println("Rock, Paper & Scissors")
-	fmt.Println("----------------------")
-	fmt.Println("Game is played for three rounds, and best of three wins the game. Good luck!")
-	fmt.Println()
+	// fmt.Println("Rock, Paper & Scissors")
+	// fmt.Println("----------------------")
+	// fmt.Println("Game is played for three rounds, and best of three wins the game. Good luck!")
+	// fmt.Println()
+	g.DisplayChan <- "Rock, Paper & Scissors"
+	g.DisplayChan <- "----------------------"
+	g.DisplayChan <- "Game is played for three rounds, and best of three wins the game. Good luck!"
+	g.DisplayChan <- ""
 }
 
 func (g *Game) PlayRound() bool {
@@ -152,4 +156,17 @@ func (g *Game) computerWins() {
 func (g *Game) playerWins() {
 	g.Round.PlayerScore++
 	g.DisplayChan <- "Player Wins!"
+}
+
+func (g *Game) PrintSummary() {
+	fmt.Println()
+	fmt.Println("Final score")
+	fmt.Println("-----------")
+	fmt.Printf("Player: %d/3, Computer %d/3", g.Round.PlayerScore, g.Round.ComputerScore)
+	fmt.Println()
+	if g.Round.PlayerScore > g.Round.ComputerScore {
+		fmt.Println("Player wins game!")
+	} else {
+		fmt.Println("Computer wins game!")
+	}
 }
