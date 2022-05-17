@@ -127,35 +127,45 @@ Round %d
 		g.DisplayChan <- "It's a draw"
 		<-g.DisplayChan
 		return false
+		// Modulus operator
+	} else if playerValue == -1 {
+		g.DisplayChan <- "Invalid choice!"
+		<-g.DisplayChan
+		return false
+	} else if playerValue == (computerValue+1)%3 {
+		g.playerWins()
 	} else {
-		switch playerValue {
-		case ROCK:
-			if computerValue == PAPER {
-				g.computerWins()
-			} else {
-				g.playerWins()
-			}
-			break
-		case PAPER:
-			if computerValue == SCISSORS {
-				g.computerWins()
-			} else {
-				g.playerWins()
-			}
-			break
-		case SCISSORS:
-			if computerValue == ROCK {
-				g.computerWins()
-			} else {
-				g.playerWins()
-			}
-			break
-		default:
-			g.DisplayChan <- "Invalid choice!"
-			<-g.DisplayChan
-			return false
-		}
+		g.computerWins()
 	}
+	// } else {
+	// 	switch playerValue {
+	// 	case ROCK:
+	// 		if computerValue == PAPER {
+	// 			g.computerWins()
+	// 		} else {
+	// 			g.playerWins()
+	// 		}
+	// 		break
+	// 	case PAPER:
+	// 		if computerValue == SCISSORS {
+	// 			g.computerWins()
+	// 		} else {
+	// 			g.playerWins()
+	// 		}
+	// 		break
+	// 	case SCISSORS:
+	// 		if computerValue == ROCK {
+	// 			g.computerWins()
+	// 		} else {
+	// 			g.playerWins()
+	// 		}
+	// 		break
+	// 	default:
+	// 		g.DisplayChan <- "Invalid choice!"
+	// 		<-g.DisplayChan
+	// 		return false
+	// 	}
+	// }
 	return true
 }
 
