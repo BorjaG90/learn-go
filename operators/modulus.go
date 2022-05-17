@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func modulus() {
 	x := 12
 	y := 3
 
