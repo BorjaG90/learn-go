@@ -1,44 +1,23 @@
 package main
 
-import (
-	"fmt"
-	"math"
-)
+import "fmt"
 
 func main() {
+	// precedence
 	// multiplication
-	var radius = 12.0
-	area := math.Pi * radius * radius
-	fmt.Println("area is", area)
+	a := 12.0 * 3.0 / 4.0
+	b := (12.0 * 3.0) / 4.0
+	c := 12.0 * (3.0 / 4.0)
 
-	// division
-	half := 1 / 2
-	fmt.Println("half with integer division", half)
+	fmt.Println("a", a, "b", b, "c", c)
 
-	halfFloat := 1.0 / 2.0
-	fmt.Println("half with float division", halfFloat)
+	// integer division
+	unclear := 12 * (3 / 4)
+	fmt.Println("unclear", unclear)
 
-	//squaring
-	badThreeSquared := 3 ^ 2
-	fmt.Println("bad Three squared", badThreeSquared)
-
-	goodThreeSquared := math.Pow(3.0, 2.0)
-	fmt.Println("good Three squared", goodThreeSquared)
-
-	// modulus
-	remainder := 50 % 3
-	fmt.Println("remainder", remainder)
-
-	// unary operators
-	x := 3
-	x++
-	fmt.Println("x is now", x)
-
-	x--
-	x--
-	fmt.Println("x is now", x)
-
-	// cant do
-	// y := x++
-
+	// parenthesis
+	f := 12.0 / 3.0 / 4.0
+	fmt.Println("f", f)
+	f = 12.0 / (3.0 / 4.0)
+	fmt.Println("f", f)
 }
