@@ -6,7 +6,7 @@
 [![Repository](https://img.shields.io/badge/github-black?logo=github)][repo-link]
 [![Language](https://img.shields.io/badge/Go-00ADD8?logo=go&logoColor=FFF)][golang-link]
 
-Curso de Udemy: Learn Go for Beginners Crash Course: <https://neoris.udemy.com/course/go-programming-language-crash-course>
+Curso de Udemy: Learn Go for Beginners Crash Course: <https://udemy.com/course/go-programming-language-crash-course>
 
 </div>
 
@@ -21,6 +21,10 @@ Curso de Udemy: Learn Go for Beginners Crash Course: <https://neoris.udemy.com/c
 ### Platforms
 
 [<img src="https://raw.githubusercontent.com/github/explore/bbd48b997e8d0bef63f676eca4da5e1f76487b56/topics/visual-studio-code/visual-studio-code.png" width=50 alt="VSCode">][vscode-link]
+
+[Certificado](https://udemy.com/certificate/UC-1876687a-a456-4536-9757-46508a03fda3/)
+
+![Diploma](https://raw.githubusercontent.com/BorjaG90/media/master/certificates/UC-1876687a-a456-4536-9757-46508a03fda3.jpg)
 
 <div align="center">
 
