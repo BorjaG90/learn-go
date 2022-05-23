@@ -6,18 +6,34 @@ import (
 )
 
 const (
-	ROCK         = 0 // beats scissors. (scissors + 1) % 3 = 0
-	PAPER        = 1 // beats rock. (rock + 1) % 3 = 1
-	SCISSORS     = 2 // beats paper. (paper + 1) % 3 = 2
-	PLAYERWINS   = 1
-	COMPUTERWINS = 2
-	DRAW         = 3
+	ROCK     = 0 // beats scissors. (scissors + 1) % 3 = 0
+	PAPER    = 1 // beats rock. (rock + 1) % 3 = 1
+	SCISSORS = 2 // beats paper. (paper + 1) % 3 = 2
 )
 
 type Round struct {
-	Winner         int    `json:"winner"`
+	// Winner         int    `json:"winner"`
+	Message        string `json:"message"`
 	ComputerChoice string `json:"computer_choice"`
 	RoundResult    string `json:"round_result"`
+}
+
+var winMessages = []string{
+	"Good job!",
+	"Nice work!",
+	"You should buy a lottery ticket.",
+}
+
+var loseMessages = []string{
+	"Too bad!",
+	"Try again!",
+	"This is not your day.",
+}
+
+var drawMessages = []string{
+	"Great minds think alike",
+	"Uh oh. Try again.",
+	"Nobody wins, but you can try again.",
 }
 
 func PlayRound(playerValue int) Round {
@@ -25,7 +41,7 @@ func PlayRound(playerValue int) Round {
 	computerValue := rand.Intn(3)
 	computerChoice := ""
 	roundResult := ""
-	winner := 0
+	// winner := 0
 
 	switch computerValue {
 	case ROCK:
@@ -40,19 +56,26 @@ func PlayRound(playerValue int) Round {
 	default:
 	}
 
+	messageInt := rand.Intn(3)
+	message := ""
+
 	if playerValue == computerValue {
 		roundResult = "It's a draw"
-		winner = DRAW
+		// winner = DRAW
+		message = drawMessages[messageInt]
 	} else if playerValue == (computerValue+1)%3 {
 		roundResult = "Player wins!"
-		winner = PLAYERWINS
+		// winner = PLAYERWINS
+		message = winMessages[messageInt]
 	} else {
 		roundResult = "Computer wins!"
-		winner = COMPUTERWINS
+		// winner = COMPUTERWINS
+		message = loseMessages[messageInt]
 	}
 
 	var result Round
-	result.Winner = winner
+	// result.Winner = winner
+	result.Message = message
 	result.ComputerChoice = computerChoice
 	result.RoundResult = roundResult
 
